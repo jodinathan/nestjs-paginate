@@ -59,6 +59,7 @@ export class Paginated<T> {
         next?: string
         last?: string
     }
+    queryBuilder?: SelectQueryBuilder<T>
 }
 
 export enum PaginationType {
@@ -436,6 +437,7 @@ export async function paginate<T extends ObjectLiteral>(
     const totalPages = isPaginated ? Math.ceil(totalItems / limit) : 1
 
     const results: Paginated<T> = {
+        queryBuilder,
         data: items,
         meta: {
             itemsPerPage: limit === PaginationLimit.COUNTER_ONLY ? totalItems : isPaginated ? limit : items.length,
